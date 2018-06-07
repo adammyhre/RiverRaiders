@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
 			transform.position = new Vector2 (-horizontalLimit, transform.position.y);
 		}
 
+		// Check if player fires bullet
 		if (Input.GetAxis ("Fire1") == 1f) {
 			if (!fired) {
 				GameObject bulletInstance = Instantiate (bulletPrefab);
@@ -43,4 +44,13 @@ public class Player : MonoBehaviour {
 		}
 		
 	}
+
+	// if Player collides with EnemyBullet or an Enemy, destroy both.
+	void OnTriggerEnter2D (Collider2D otherCollider) {
+		if (otherCollider.tag == "EnemyBullet" || otherCollider.tag == "Enemy") {
+			Destroy (gameObject);
+			Destroy (otherCollider.gameObject);
+		}
+	}
+
 }
